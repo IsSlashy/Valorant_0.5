@@ -1,4 +1,5 @@
 import pygame
+import sys, os
 import math
 from game import Game
 pygame.init()
@@ -70,3 +71,17 @@ while running:
                 # jouer le son
                 game.sound_manager.play('click')
 
+try:
+    background = pygame.image.load('Valorant_Assets/bg.png')
+except Exception as e:
+    print(f"Erreur de chargement de l'image : {e}")
+    pygame.quit()
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+background = pygame.image.load(resource_path('Valorant_Assets/bg.png'))
+# Et ainsi de suite pour les autres ressources...
